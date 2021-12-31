@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.sampleweather.R
 import com.example.sampleweather.data.WEEKLY_FORECAST
 import com.example.sampleweather.model.Forecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
@@ -39,11 +40,26 @@ fun WeatherItem(modifier: Modifier = Modifier, forecast: Forecast) {
                 Image(
                     painter = painterResource(id = forecast.weatherIcon),
                     contentDescription = "Weather icon",
-                    modifier = Modifier.size(12.dp)
+                    modifier = Modifier.size(40.dp)
                 )
                 Spacer(Modifier.width(4.dp))
                 Text(text = forecast.weather)
             }
+            Row {
+                Text(text = "${forecast.minimumTemperature}" )
+                Text(text = "〜" )
+                Text(text = "${forecast.maximumTemperature}℃" )
+            }
+            Row(modifier = Modifier.padding(8.dp, 4.dp)) {
+                Image(
+                    painter = painterResource(id = R.drawable.umbrella),
+                    contentDescription = "umbrella icon",
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(Modifier.width(4.dp))
+                Text(text = "${forecast.chanceOfRain}%")
+            }
+
         }
     }
 }
