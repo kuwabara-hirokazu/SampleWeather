@@ -17,11 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sampleweather.R
 import com.example.sampleweather.data.WEEKLY_FORECAST
+import com.example.sampleweather.extension.toDegreesString
+import com.example.sampleweather.extension.toPercentString
 import com.example.sampleweather.model.Forecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
@@ -46,9 +49,9 @@ fun WeatherItem(modifier: Modifier = Modifier, forecast: Forecast) {
                 Text(text = forecast.weather)
             }
             Row {
-                Text(text = "${forecast.minimumTemperature}" )
-                Text(text = "〜" )
-                Text(text = "${forecast.maximumTemperature}℃" )
+                Text(text = forecast.minimumTemperature.toDegreesString() )
+                Text(text =  stringResource(id = R.string.wavy_line))
+                Text(text = forecast.maximumTemperature.toDegreesString() )
             }
             Row(modifier = Modifier.padding(8.dp, 4.dp)) {
                 Image(
@@ -57,7 +60,7 @@ fun WeatherItem(modifier: Modifier = Modifier, forecast: Forecast) {
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(Modifier.width(4.dp))
-                Text(text = "${forecast.chanceOfRain}%")
+                Text(text = forecast.chanceOfRain.toPercentString())
             }
 
         }
