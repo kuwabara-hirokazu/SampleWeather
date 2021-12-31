@@ -29,7 +29,7 @@ import com.example.sampleweather.model.Forecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
-fun WeatherItem(modifier: Modifier = Modifier, forecast: Forecast) {
+fun WeeklyItem(modifier: Modifier = Modifier, forecast: Forecast) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp)
@@ -49,9 +49,9 @@ fun WeatherItem(modifier: Modifier = Modifier, forecast: Forecast) {
                 Text(text = forecast.weather)
             }
             Row {
-                Text(text = forecast.minimumTemperature.toDegreesString() )
-                Text(text =  stringResource(id = R.string.wavy_line))
-                Text(text = forecast.maximumTemperature.toDegreesString() )
+                Text(text = forecast.minimumTemperature.toDegreesString())
+                Text(text = stringResource(id = R.string.wavy_line))
+                Text(text = forecast.maximumTemperature.toDegreesString())
             }
             Row(modifier = Modifier.padding(8.dp, 4.dp)) {
                 Image(
@@ -68,14 +68,14 @@ fun WeatherItem(modifier: Modifier = Modifier, forecast: Forecast) {
 }
 
 @Composable
-fun WeatherList() {
+fun WeeklyWeather() {
     LazyRow(
         modifier = Modifier
             .background(Color.Blue)
             .padding(16.dp)
     ) {
         items(WEEKLY_FORECAST.size) { index ->
-            WeatherItem(
+            WeeklyItem(
                 modifier = Modifier.padding(8.dp),
                 forecast = WEEKLY_FORECAST[index]
             )
@@ -85,9 +85,9 @@ fun WeatherList() {
 
 @Preview
 @Composable
-fun WeatherListPreview() {
+fun WeeklyWeatherPreview() {
     SampleWeatherTheme {
-        WeatherList()
+        WeeklyWeather()
     }
 }
 
