@@ -3,9 +3,7 @@ package com.example.sampleweather
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import com.example.sampleweather.ui.DailyWeather
-import com.example.sampleweather.ui.WeeklyWeather
+import com.example.sampleweather.ui.WeatherScreen
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,10 +11,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SampleWeatherTheme {
-                Column {
-                    WeeklyWeather()
-                    DailyWeather()
-                }
+                WeatherScreen()
             }
         }
     }
