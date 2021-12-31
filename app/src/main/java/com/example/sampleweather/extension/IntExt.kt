@@ -11,3 +11,7 @@ import com.example.sampleweather.R
 @Composable fun Int.toPercentString(): String {
     return stringResource(id = R.string.percent, this.toString())
 }
+
+@Composable fun Int.toHourString(): String {
+    return stringResource(id = R.string.hour, this.toString())
+}
