@@ -7,7 +7,7 @@ data class DailyForecast(
 
 data class HourlyForecast(
     val hour: Int,
-    val weather: String,
+    val weather: Int,
     val weatherIcon: Int,
     val temperature: Int,
     val chanceOfRain: Int

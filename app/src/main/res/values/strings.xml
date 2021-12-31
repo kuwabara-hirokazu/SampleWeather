@@ -4,4 +4,9 @@
     <string name="percent">%1$s ％</string>
     <string name="wavy_line">~</string>
     <string name="hour">%1$s 時</string>
+
+    <string name="sunny">晴</string>
+    <string name="rainy">雨</string>
+    <string name="snow">雪</string>
+    <string name="thunder">雷</string>
 </resources>

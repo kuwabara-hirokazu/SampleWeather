@@ -25,33 +25,33 @@ import com.example.sampleweather.R
 import com.example.sampleweather.data.WEEKLY_FORECAST
 import com.example.sampleweather.extension.toDegreesString
 import com.example.sampleweather.extension.toPercentString
-import com.example.sampleweather.model.Forecast
+import com.example.sampleweather.model.WeeklyForecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
-fun WeeklyItem(modifier: Modifier = Modifier, forecast: Forecast) {
+fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp)
     ) {
         Column(modifier = Modifier.padding(8.dp, 4.dp)) {
-            Text(text = forecast.date, fontSize = 8.sp)
+            Text(text = weeklyForecast.date, fontSize = 8.sp)
             Row(
                 modifier = Modifier.padding(8.dp, 4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = forecast.weatherIcon),
+                    painter = painterResource(id = weeklyForecast.weather.icon),
                     contentDescription = "Weather icon",
                     modifier = Modifier.size(40.dp)
                 )
                 Spacer(Modifier.width(4.dp))
-                Text(text = forecast.weather)
+                Text(text = stringResource(id = weeklyForecast.weather.weather))
             }
             Row {
-                Text(text = forecast.minimumTemperature.toDegreesString())
+                Text(text = weeklyForecast.minimumTemperature.toDegreesString())
                 Text(text = stringResource(id = R.string.wavy_line))
-                Text(text = forecast.maximumTemperature.toDegreesString())
+                Text(text = weeklyForecast.maximumTemperature.toDegreesString())
             }
             Row(modifier = Modifier.padding(8.dp, 4.dp)) {
                 Image(
@@ -60,7 +60,7 @@ fun WeeklyItem(modifier: Modifier = Modifier, forecast: Forecast) {
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(Modifier.width(4.dp))
-                Text(text = forecast.chanceOfRain.toPercentString())
+                Text(text = weeklyForecast.chanceOfRain.toPercentString())
             }
 
         }
@@ -77,7 +77,7 @@ fun WeeklyWeather() {
         items(WEEKLY_FORECAST.size) { index ->
             WeeklyItem(
                 modifier = Modifier.padding(8.dp),
-                forecast = WEEKLY_FORECAST[index]
+                weeklyForecast = WEEKLY_FORECAST[index]
             )
         }
     }
