@@ -77,7 +77,9 @@ fun WeeklyWeather(viewModel: WeatherViewModel) {
     ) {
         items(WEEKLY_FORECAST.size) { index ->
             WeeklyItem(
-                modifier = Modifier.padding(8.dp).clickable { viewModel.onForecastImageChange(WEEKLY_FORECAST[index].weather) },
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable { viewModel.onForecastImageChange(WEEKLY_FORECAST[index].weather) },
                 weeklyForecast = WEEKLY_FORECAST[index]
             )
         }
