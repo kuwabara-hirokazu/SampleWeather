@@ -2,6 +2,7 @@ package com.example.sampleweather.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -68,7 +69,7 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
 }
 
 @Composable
-fun WeeklyWeather() {
+fun WeeklyWeather(viewModel: WeatherViewModel) {
     LazyRow(
         modifier = Modifier
             .background(Color.Blue)
@@ -76,7 +77,7 @@ fun WeeklyWeather() {
     ) {
         items(WEEKLY_FORECAST.size) { index ->
             WeeklyItem(
-                modifier = Modifier.padding(8.dp),
+                modifier = Modifier.padding(8.dp).clickable { viewModel.onForecastImageChange(WEEKLY_FORECAST[index].weather) },
                 weeklyForecast = WEEKLY_FORECAST[index]
             )
         }
@@ -87,7 +88,7 @@ fun WeeklyWeather() {
 @Composable
 fun WeeklyWeatherPreview() {
     SampleWeatherTheme {
-        WeeklyWeather()
+        WeeklyWeather(WeatherViewModel())
     }
 }
 
