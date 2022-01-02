@@ -28,7 +28,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
                 .height(160.dp),
             contentScale = ContentScale.FillWidth
         )
-        WeeklyWeather(viewModel)
+        WeeklyWeather { viewModel.onForecastImageChanged(it) }
         DailyWeather()
     }
 }

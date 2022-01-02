@@ -10,7 +10,7 @@ class WeatherViewModel: ViewModel() {
    private val _forecastImage = MutableLiveData<Int>()
     val forecastImage: LiveData<Int> = _forecastImage
 
-    fun onForecastImageChange(weatherItem: WeatherItem) {
+    fun onForecastImageChanged(weatherItem: WeatherItem) {
         _forecastImage.value = weatherItem.image
     }
 }
