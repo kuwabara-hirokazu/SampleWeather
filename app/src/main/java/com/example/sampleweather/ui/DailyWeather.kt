@@ -1,9 +1,12 @@
 package com.example.sampleweather.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -12,6 +15,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,17 +44,12 @@ fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast) {
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {
-        Column(modifier = Modifier.padding(8.dp, 4.dp)) {
-            Text(text = dailyForecast.date, fontSize = 16.sp)
-            Row(
-                modifier = Modifier.padding(8.dp)
-            ) {
-                dailyForecast.forecasts.forEach { hourlyForecast ->
-                    HourlyItem(
-                        modifier = Modifier.padding(8.dp),
-                        hourlyForecast = hourlyForecast
-                    )
-                }
+        Row(modifier = Modifier.padding(8.dp)) {
+            dailyForecast.forecasts.forEach { hourlyForecast ->
+                HourlyItem(
+                    modifier = Modifier.padding(8.dp),
+                    hourlyForecast = hourlyForecast
+                )
             }
         }
     }
@@ -64,7 +66,7 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = hourlyForecast.hour.toHourString(), fontSize = 12.sp)
-            Row(modifier = Modifier.padding(8.dp, 4.dp)) {
+            Row {
                 Image(
                     painter = painterResource(id = hourlyForecast.weatherIcon),
                     contentDescription = "Weather icon",
@@ -74,7 +76,7 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
                 Text(text = stringResource(id = hourlyForecast.weather))
             }
             Text(text = hourlyForecast.temperature.toDegreesString())
-            Row(modifier = Modifier.padding(8.dp, 4.dp)) {
+            Row {
                 Image(
                     painter = painterResource(id = R.drawable.umbrella),
                     contentDescription = "umbrella icon",
@@ -89,14 +91,34 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
 
 @Composable
 fun DailyWeather() {
-    LazyRow(
-        modifier = Modifier.padding(16.dp)
-    ) {
-        items(DAILY_FORECASTS.size) { index ->
-            DailyItem(
-                modifier = Modifier.padding(8.dp),
-                dailyForecast = DAILY_FORECASTS[index]
+    var count by remember { mutableStateOf(0) }
+
+    Column(modifier = Modifier.padding(8.dp)) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+            Text(
+                text = "←",
+                modifier = Modifier.clickable { if (0 < count) count -= 1 },
+                fontSize = 28.sp,
+                color = Color.White
             )
+            Text(
+                text = DAILY_FORECASTS[count].date,
+                fontSize = 24.sp,
+                color = Color.White
+            )
+            Text(
+                text = "→",
+                modifier = Modifier.clickable { if (count < DAILY_FORECASTS.size - 1) count += 1 },
+                fontSize = 28.sp,
+                color = Color.White
+            )
+        }
+        LazyRow {
+            items(1) {
+                DailyItem(
+                    dailyForecast = DAILY_FORECASTS[count]
+                )
+            }
         }
     }
 }
