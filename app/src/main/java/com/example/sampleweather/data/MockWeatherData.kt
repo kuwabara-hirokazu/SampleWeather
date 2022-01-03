@@ -6,13 +6,13 @@ import com.example.sampleweather.model.HourlyForecast
 import com.example.sampleweather.model.WeatherItem
 
 val WEEKLY_FORECAST = listOf(
-    WeeklyForecast("1日(月)", WeatherItem.SUNNY, 12, 18, 40),
-    WeeklyForecast("2日(火)", WeatherItem.RAINY, 5, 10, 85),
-    WeeklyForecast("3日(水)", WeatherItem.SNOW, 0, 5, 70),
-    WeeklyForecast("4日(木)", WeatherItem.THUNDER, 8, 13, 100),
-    WeeklyForecast("5日(金)", WeatherItem.RAINY, 5, 10, 90),
-    WeeklyForecast("6日(土)", WeatherItem.SUNNY, 12, 18, 10),
-    WeeklyForecast("7日(日)", WeatherItem.SNOW, 0, 5, 80)
+    WeeklyForecast("11/1", WeatherItem.SUNNY, 12, 18, 40),
+    WeeklyForecast("11/2", WeatherItem.RAINY, 5, 10, 85),
+    WeeklyForecast("11/3", WeatherItem.SNOW, 0, 5, 70),
+    WeeklyForecast("11/4", WeatherItem.THUNDER, 8, 13, 100),
+    WeeklyForecast("11/5", WeatherItem.RAINY, 5, 10, 90),
+    WeeklyForecast("11/6", WeatherItem.SUNNY, 12, 18, 10),
+    WeeklyForecast("11/7", WeatherItem.SNOW, 0, 5, 80)
 )
 
 val DAILY_FORECASTS: List<DailyForecast> =

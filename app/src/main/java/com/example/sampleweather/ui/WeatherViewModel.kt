@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.sampleweather.model.WeatherItem
 
-class WeatherViewModel: ViewModel() {
+class WeatherViewModel : ViewModel() {
 
-   private val _forecastImage = MutableLiveData<Int>()
+    private val _forecastImage = MutableLiveData<Int>()
     val forecastImage: LiveData<Int> = _forecastImage
 
     fun onForecastImageChanged(weatherItem: WeatherItem) {
