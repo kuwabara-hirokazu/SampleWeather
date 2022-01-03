@@ -1,7 +1,6 @@
 package com.example.sampleweather.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,12 +33,14 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        backgroundColor = Color.Transparent,
+        elevation = 0.dp
     ) {
         Column(modifier = Modifier.padding(8.dp, 4.dp)) {
             Text(text = dailyForecast.date, fontSize = 16.sp)
             Row(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(8.dp)
             ) {
                 dailyForecast.forecasts.forEach { hourlyForecast ->
                     HourlyItem(
@@ -56,8 +57,7 @@ fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast) {
 fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        backgroundColor = Color.LightGray
+        shape = RoundedCornerShape(8.dp)
     ) {
         Column(
             modifier = Modifier.padding(8.dp, 4.dp),
@@ -90,9 +90,7 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
 @Composable
 fun DailyWeather() {
     LazyRow(
-        modifier = Modifier
-            .background(Color.Blue)
-            .padding(16.dp)
+        modifier = Modifier.padding(16.dp)
     ) {
         items(DAILY_FORECASTS.size) { index ->
             DailyItem(
