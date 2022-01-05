@@ -18,6 +18,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,30 +36,38 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
+        backgroundColor = Color.Transparent,
+        elevation = 0.dp
     ) {
         Row(
             modifier = Modifier
                 .padding(8.dp, 4.dp)
                 .fillMaxSize()
         ) {
-            Text(text = weeklyForecast.date, fontSize = 16.sp)
-            Spacer(Modifier.width(16.dp))
-            Image(
-                painter = painterResource(id = weeklyForecast.weather.icon),
-                contentDescription = "Weather icon",
-                modifier = Modifier
-                    .size(40.dp)
-            )
             Text(
-                text = stringResource(id = weeklyForecast.weather.weather),
-                fontSize = 16.sp,
-                modifier = Modifier.padding(8.dp)
+                text = weeklyForecast.date,
+                color = Color.White,
+                fontSize = 16.sp
             )
+            Spacer(Modifier.width(16.dp))
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(
+                    painter = painterResource(id = weeklyForecast.weather.icon),
+                    contentDescription = "Weather icon",
+                    modifier = Modifier.size(80.dp)
+                )
+                Text(
+                    text = stringResource(id = weeklyForecast.weather.weather),
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End) {
                 Row {
-                    Text(text = weeklyForecast.minimumTemperature.toDegreesString())
-                    Text(text = stringResource(id = R.string.wavy_line))
-                    Text(text = weeklyForecast.maximumTemperature.toDegreesString())
+                    Text(text = weeklyForecast.minimumTemperature.toDegreesString(), color = Color.White)
+                    Text(text = stringResource(id = R.string.wavy_line), color = Color.White)
+                    Text(text = weeklyForecast.maximumTemperature.toDegreesString(), color = Color.White)
                 }
                 Spacer(Modifier.height(4.dp))
                 Row {
@@ -68,7 +77,7 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(Modifier.width(4.dp))
-                    Text(text = weeklyForecast.chanceOfRain.toPercentString())
+                    Text(text = weeklyForecast.chanceOfRain.toPercentString(), color = Color.White)
                 }
             }
         }
