@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -59,31 +60,48 @@ fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast) {
 fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        backgroundColor = Color.Transparent,
+        elevation = 0.dp
     ) {
         Column(
             modifier = Modifier.padding(8.dp, 4.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = hourlyForecast.hour.toHourString(), fontSize = 12.sp)
+            Text(
+                text = hourlyForecast.hour.toHourString(),
+                color = Color.White,
+                fontSize = 16.sp
+            )
+            Image(
+                painter = painterResource(id = hourlyForecast.weatherIcon),
+                contentDescription = "Weather icon",
+                modifier = Modifier.size(100.dp)
+            )
+            Text(
+                text = stringResource(id = hourlyForecast.weather),
+                color = Color.White,
+                fontSize = 20.sp
+            )
+            Spacer(Modifier.height(4.dp))
             Row {
-                Image(
-                    painter = painterResource(id = hourlyForecast.weatherIcon),
-                    contentDescription = "Weather icon",
-                    modifier = Modifier.size(40.dp)
+                Text(
+                    text = hourlyForecast.temperature.toDegreesString(),
+                    color = Color.White,
+                    fontSize = 16.sp
                 )
-                Spacer(Modifier.width(4.dp))
-                Text(text = stringResource(id = hourlyForecast.weather))
-            }
-            Text(text = hourlyForecast.temperature.toDegreesString())
-            Row {
+                Spacer(Modifier.width(20.dp))
                 Image(
                     painter = painterResource(id = R.drawable.umbrella),
                     contentDescription = "umbrella icon",
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(18.dp)
                 )
                 Spacer(Modifier.width(4.dp))
-                Text(text = hourlyForecast.chanceOfRain.toPercentString())
+                Text(
+                    text = hourlyForecast.chanceOfRain.toPercentString(),
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
             }
         }
     }

@@ -3,14 +3,14 @@ package com.example.sampleweather.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sampleweather.model.WeatherItem
+import com.example.sampleweather.model.WeeklyForecast
 
 class WeatherViewModel : ViewModel() {
 
-    private val _forecastImage = MutableLiveData<Int>()
-    val forecastImage: LiveData<Int> = _forecastImage
+    private val _dailyForecast = MutableLiveData<WeeklyForecast>()
+    val dailyForecast: LiveData<WeeklyForecast> = _dailyForecast
 
-    fun onForecastImageChanged(weatherItem: WeatherItem) {
-        _forecastImage.value = weatherItem.image
+    fun onDateChanged(item: WeeklyForecast) {
+        _dailyForecast.value = item
     }
 }

@@ -10,7 +10,7 @@ val WEEKLY_FORECAST = listOf(
     WeeklyForecast("11/2", WeatherItem.RAINY, 5, 10, 85),
     WeeklyForecast("11/3", WeatherItem.SNOW, 0, 5, 70),
     WeeklyForecast("11/4", WeatherItem.THUNDER, 8, 13, 100),
-    WeeklyForecast("11/5", WeatherItem.RAINY, 5, 10, 90),
+    WeeklyForecast("11/5", WeatherItem.FOG, 10, 15, 60),
     WeeklyForecast("11/6", WeatherItem.SUNNY, 12, 18, 10),
     WeeklyForecast("11/7", WeatherItem.SNOW, 0, 5, 80)
 )
@@ -28,6 +28,7 @@ private fun WeatherItem.getTemperature(): Int {
         WeatherItem.RAINY -> (5..10).random()
         WeatherItem.SNOW -> (0..5).random()
         WeatherItem.THUNDER -> (8..13).random()
+        WeatherItem.FOG -> (10..15).random()
     }
 }
 
@@ -37,5 +38,6 @@ private fun WeatherItem.getChanceOfRain(): Int {
         WeatherItem.RAINY -> (50..100).random()
         WeatherItem.SNOW -> (60..100).random()
         WeatherItem.THUNDER -> (70..100).random()
+        WeatherItem.FOG -> (40..80).random()
     }
 }

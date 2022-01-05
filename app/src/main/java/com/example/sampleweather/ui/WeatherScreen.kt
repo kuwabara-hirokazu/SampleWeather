@@ -10,21 +10,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.sampleweather.R
 import com.example.sampleweather.data.WEEKLY_FORECAST
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
-    val forecastImage by viewModel.forecastImage.observeAsState(WEEKLY_FORECAST[0].weather.image)
+    val dailyForecast by viewModel.dailyForecast.observeAsState(WEEKLY_FORECAST[0])
     Image(
-        painter = painterResource(id = forecastImage),
+        painter = painterResource(id = R.drawable.img_background),
         contentDescription = "Weather image",
         modifier = Modifier.fillMaxSize(),
         contentScale = ContentScale.Crop
     )
     Column {
         DailyWeather()
-        WeeklyWeather { viewModel.onForecastImageChanged(it) }
+        WeeklyWeather { viewModel.onDateChanged(it) }
     }
 }
 

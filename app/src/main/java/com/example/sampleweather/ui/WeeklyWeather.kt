@@ -27,7 +27,6 @@ import com.example.sampleweather.R
 import com.example.sampleweather.data.WEEKLY_FORECAST
 import com.example.sampleweather.extension.toDegreesString
 import com.example.sampleweather.extension.toPercentString
-import com.example.sampleweather.model.WeatherItem
 import com.example.sampleweather.model.WeeklyForecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
@@ -77,7 +76,7 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
 }
 
 @Composable
-fun WeeklyWeather(onForecastImageChanged: (WeatherItem) -> Unit) {
+fun WeeklyWeather(onForecastImageChanged: (WeeklyForecast) -> Unit) {
     LazyColumn(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -85,7 +84,7 @@ fun WeeklyWeather(onForecastImageChanged: (WeatherItem) -> Unit) {
             WeeklyItem(
                 modifier = Modifier
                     .padding(8.dp)
-                    .clickable { onForecastImageChanged(WEEKLY_FORECAST[index].weather) },
+                    .clickable { onForecastImageChanged(WEEKLY_FORECAST[index]) },
                 weeklyForecast = WEEKLY_FORECAST[index]
             )
         }
