@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.sampleweather.R
 import com.example.sampleweather.data.DAILY_FORECASTS
+import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.extension.toDegreesString
 import com.example.sampleweather.extension.toHourString
 import com.example.sampleweather.extension.toPercentString
@@ -112,27 +113,21 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
             )
             Row {
                 repeat(3) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Image(
-                            painter = rememberImagePainter(
-                                data = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
-                            ),
-                            contentDescription = "umbrella icon",
-                            modifier = Modifier
-                                .size(100.dp)
-                                .padding(8.dp)
-                        )
-                        Text(
-                            text = "pikachu",
-                            color = Color.White,
-                            fontSize = 16.sp
-                        )
-                    }
+                    Image(
+                        painter = rememberImagePainter(
+                            data = createPokemonData()
+                        ),
+                        contentDescription = "umbrella icon",
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(8.dp)
+                    )
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun DailyWeather() {
