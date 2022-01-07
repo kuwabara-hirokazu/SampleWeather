@@ -1,11 +1,16 @@
 package com.example.sampleweather.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +25,7 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
 fun WeatherScreen() {
+    val checkedWeeklyState = remember { mutableStateOf(false) }
     Image(
         painter = painterResource(id = R.drawable.img_background),
         contentDescription = "Weather image",
@@ -27,14 +33,25 @@ fun WeatherScreen() {
         contentScale = ContentScale.Crop
     )
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = stringResource(id = R.string.app_name),
-            color = Color.White,
-            fontSize = 32.sp,
-            modifier = Modifier.padding(16.dp)
-        )
-        DailyWeather()
-        WeeklyWeather()
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = stringResource(id = R.string.app_name),
+                color = Color.White,
+                fontSize = 32.sp,
+                modifier = Modifier.padding(end = 16.dp)
+            )
+            Image(
+                painter = painterResource(id = R.drawable.pokemon_ball),
+                contentDescription = "pokemon ball",
+                modifier = Modifier
+                    .size(32.dp)
+                    .clickable { checkedWeeklyState.value = !checkedWeeklyState.value }
+            )
+        }
+        when (checkedWeeklyState.value) {
+            true -> WeeklyWeather()
+            false -> DailyWeather()
+        }
     }
 }
 
