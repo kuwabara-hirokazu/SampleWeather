@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.example.sampleweather.R
 import com.example.sampleweather.data.DAILY_FORECASTS
 import com.example.sampleweather.extension.toDegreesString
@@ -71,37 +72,63 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
             Text(
                 text = hourlyForecast.hour.toHourString(),
                 color = Color.White,
-                fontSize = 16.sp
+                fontSize = 24.sp
             )
             Image(
                 painter = painterResource(id = hourlyForecast.weatherIcon),
                 contentDescription = "Weather icon",
-                modifier = Modifier.size(100.dp)
+                modifier = Modifier.size(300.dp)
             )
             Text(
                 text = stringResource(id = hourlyForecast.weather),
                 color = Color.White,
-                fontSize = 20.sp
+                fontSize = 32.sp
             )
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(16.dp))
             Row {
                 Text(
                     text = hourlyForecast.temperature.toDegreesString(),
                     color = Color.White,
-                    fontSize = 16.sp
+                    fontSize = 28.sp
                 )
                 Spacer(Modifier.width(20.dp))
                 Image(
                     painter = painterResource(id = R.drawable.umbrella),
                     contentDescription = "umbrella icon",
-                    modifier = Modifier.size(18.dp)
+                    modifier = Modifier.size(28.dp)
                 )
                 Spacer(Modifier.width(4.dp))
                 Text(
                     text = hourlyForecast.chanceOfRain.toPercentString(),
                     color = Color.White,
-                    fontSize = 16.sp
+                    fontSize = 28.sp
                 )
+            }
+            Spacer(Modifier.height(36.dp))
+            Text(
+                text = "Pokémon with a high rate of appearance",
+                color = Color.White,
+                fontSize = 16.sp
+            )
+            Row {
+                repeat(3) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Image(
+                            painter = rememberImagePainter(
+                                data = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+                            ),
+                            contentDescription = "umbrella icon",
+                            modifier = Modifier
+                                .size(100.dp)
+                                .padding(8.dp)
+                        )
+                        Text(
+                            text = "pikachu",
+                            color = Color.White,
+                            fontSize = 16.sp
+                        )
+                    }
+                }
             }
         }
     }
