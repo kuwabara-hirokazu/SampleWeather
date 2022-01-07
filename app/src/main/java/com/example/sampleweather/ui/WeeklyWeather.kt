@@ -1,16 +1,11 @@
 package com.example.sampleweather.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -24,10 +19,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sampleweather.R
+import coil.compose.rememberImagePainter
 import com.example.sampleweather.data.WEEKLY_FORECAST
-import com.example.sampleweather.extension.toDegreesString
-import com.example.sampleweather.extension.toPercentString
+import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.model.WeeklyForecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
@@ -49,7 +43,6 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
                 color = Color.White,
                 fontSize = 16.sp
             )
-            Spacer(Modifier.width(16.dp))
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
                     painter = painterResource(id = weeklyForecast.weather.icon),
@@ -63,21 +56,17 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
                     modifier = Modifier.padding(8.dp)
                 )
             }
-            Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End) {
-                Row {
-                    Text(text = weeklyForecast.minimumTemperature.toDegreesString(), color = Color.White)
-                    Text(text = stringResource(id = R.string.wavy_line), color = Color.White)
-                    Text(text = weeklyForecast.maximumTemperature.toDegreesString(), color = Color.White)
-                }
-                Spacer(Modifier.height(4.dp))
-                Row {
+            Row {
+                repeat(2) {
                     Image(
-                        painter = painterResource(id = R.drawable.umbrella),
+                        painter = rememberImagePainter(
+                            data = createPokemonData()
+                        ),
                         contentDescription = "umbrella icon",
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier
+                            .size(80.dp)
+                            .padding(8.dp)
                     )
-                    Spacer(Modifier.width(4.dp))
-                    Text(text = weeklyForecast.chanceOfRain.toPercentString(), color = Color.White)
                 }
             }
         }
@@ -85,15 +74,13 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
 }
 
 @Composable
-fun WeeklyWeather(onForecastImageChanged: (WeeklyForecast) -> Unit) {
+fun WeeklyWeather() {
     LazyColumn(
         modifier = Modifier.padding(16.dp)
     ) {
         items(WEEKLY_FORECAST.size) { index ->
             WeeklyItem(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .clickable { onForecastImageChanged(WEEKLY_FORECAST[index]) },
+                modifier = Modifier.padding(8.dp),
                 weeklyForecast = WEEKLY_FORECAST[index]
             )
         }
@@ -104,7 +91,7 @@ fun WeeklyWeather(onForecastImageChanged: (WeeklyForecast) -> Unit) {
 @Composable
 fun WeeklyWeatherPreview() {
     SampleWeatherTheme {
-        WeeklyWeather {}
+        WeeklyWeather()
     }
 }
 

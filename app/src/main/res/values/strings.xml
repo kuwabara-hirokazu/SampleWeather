@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SampleWeather</string>
+    <string name="app_name">PokéWeather</string>
     <string name="degrees">%1$s °C</string>
     <string name="percent">%1$s ％</string>
     <string name="wavy_line">~</string>

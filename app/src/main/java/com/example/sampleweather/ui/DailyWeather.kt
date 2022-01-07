@@ -2,11 +2,9 @@ package com.example.sampleweather.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -80,13 +77,12 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
                 contentDescription = "Weather icon",
                 modifier = Modifier.size(300.dp)
             )
-            Text(
-                text = stringResource(id = hourlyForecast.weather),
-                color = Color.White,
-                fontSize = 32.sp
-            )
-            Spacer(Modifier.height(16.dp))
             Row {
+                Image(
+                    painter = painterResource(id = R.drawable.temperature),
+                    contentDescription = "temperature icon",
+                    modifier = Modifier.size(28.dp)
+                )
                 Text(
                     text = hourlyForecast.temperature.toDegreesString(),
                     color = Color.White,
@@ -96,7 +92,7 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
                 Image(
                     painter = painterResource(id = R.drawable.umbrella),
                     contentDescription = "umbrella icon",
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(26.dp)
                 )
                 Spacer(Modifier.width(4.dp))
                 Text(
@@ -133,8 +129,8 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
 fun DailyWeather() {
     var count by remember { mutableStateOf(0) }
 
-    Column(modifier = Modifier.padding(8.dp)) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Row() {
             Text(
                 text = "←",
                 modifier = Modifier.clickable { if (0 < count) count -= 1 },
@@ -144,7 +140,8 @@ fun DailyWeather() {
             Text(
                 text = DAILY_FORECASTS[count].date,
                 fontSize = 24.sp,
-                color = Color.White
+                color = Color.White,
+                modifier = Modifier.padding(horizontal = 40.dp)
             )
             Text(
                 text = "→",
