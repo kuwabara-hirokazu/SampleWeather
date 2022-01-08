@@ -25,8 +25,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.example.sampleweather.R
 import com.example.sampleweather.data.DAILY_FORECASTS
+import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.extension.toDegreesString
 import com.example.sampleweather.extension.toHourString
 import com.example.sampleweather.extension.toPercentString
@@ -102,7 +104,11 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
             )
             Row {
                 repeat(3) {
-                    PokemonItem(
+                    Image(
+                        painter = rememberImagePainter(
+                            data = createPokemonData()
+                        ),
+                        contentDescription = "pokemon icon",
                         modifier = Modifier
                             .size(100.dp)
                             .padding(8.dp)
@@ -118,7 +124,10 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
 fun DailyWeather() {
     var count by remember { mutableStateOf(0) }
 
-    Column(modifier = Modifier.padding(top = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier.padding(top = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Row {
             Text(
                 text = stringResource(id = R.string.left_arrow),

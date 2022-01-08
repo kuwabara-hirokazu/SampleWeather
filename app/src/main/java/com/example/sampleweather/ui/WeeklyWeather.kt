@@ -17,7 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.example.sampleweather.data.WEEKLY_FORECAST
+import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.model.WeeklyForecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
@@ -49,7 +51,13 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
             }
             Row(modifier = Modifier.padding(start = 4.dp, top = 8.dp)) {
                 repeat(3) {
-                    PokemonItem(modifier = Modifier.size(64.dp))
+                    Image(
+                        painter = rememberImagePainter(
+                            data = createPokemonData()
+                        ),
+                        contentDescription = "pokemon icon",
+                        modifier = Modifier.size(64.dp)
+                    )
                 }
             }
         }
