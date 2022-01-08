@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +27,7 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
 fun WeatherScreen() {
-    val checkedWeeklyState = remember { mutableStateOf(false) }
+    var checkedWeeklyState by remember { mutableStateOf(false) }
     Image(
         painter = painterResource(id = R.drawable.img_background),
         contentDescription = "Weather image",
@@ -45,10 +47,10 @@ fun WeatherScreen() {
                 contentDescription = "pokemon ball",
                 modifier = Modifier
                     .size(32.dp)
-                    .clickable { checkedWeeklyState.value = !checkedWeeklyState.value }
+                    .clickable { checkedWeeklyState = !checkedWeeklyState }
             )
         }
-        when (checkedWeeklyState.value) {
+        when (checkedWeeklyState) {
             true -> WeeklyWeather()
             false -> DailyWeather()
         }
