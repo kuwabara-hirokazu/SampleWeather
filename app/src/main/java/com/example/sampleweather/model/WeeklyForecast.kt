@@ -5,8 +5,6 @@ import com.example.sampleweather.R
 data class WeeklyForecast(
     val date: String,
     val weather: WeatherItem,
-    val minimumTemperature: Int,
-    val maximumTemperature: Int,
     val chanceOfRain: Int
 )
 
