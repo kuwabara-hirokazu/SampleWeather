@@ -30,7 +30,7 @@ fun WeatherScreen() {
     var checkedWeeklyState by remember { mutableStateOf(false) }
     Image(
         painter = painterResource(id = R.drawable.img_background),
-        contentDescription = "Weather image",
+        contentDescription = "background image",
         modifier = Modifier.fillMaxSize(),
         contentScale = ContentScale.Crop
     )

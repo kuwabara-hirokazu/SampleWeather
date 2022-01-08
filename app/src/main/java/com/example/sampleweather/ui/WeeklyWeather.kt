@@ -3,11 +3,9 @@ package com.example.sampleweather.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,9 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
 import com.example.sampleweather.data.WEEKLY_FORECAST
-import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.model.WeeklyForecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
@@ -29,15 +25,10 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {
-        Row(
-            modifier = Modifier
-                .padding(8.dp, 4.dp)
-                .fillMaxSize()
-        ) {
+        Row {
             Text(
                 text = weeklyForecast.date,
                 color = Color.White,
@@ -56,17 +47,9 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
                     modifier = Modifier.padding(8.dp)
                 )
             }
-            Row {
-                repeat(2) {
-                    Image(
-                        painter = rememberImagePainter(
-                            data = createPokemonData()
-                        ),
-                        contentDescription = "umbrella icon",
-                        modifier = Modifier
-                            .size(80.dp)
-                            .padding(8.dp)
-                    )
+            Row(modifier = Modifier.padding(top = 8.dp)) {
+                repeat(3) {
+                    PokemonItem(modifier = Modifier.size(64.dp))
                 }
             }
         }

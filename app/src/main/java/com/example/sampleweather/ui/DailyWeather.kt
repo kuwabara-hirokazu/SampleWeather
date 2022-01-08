@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,13 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
 import com.example.sampleweather.R
 import com.example.sampleweather.data.DAILY_FORECASTS
-import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.extension.toDegreesString
 import com.example.sampleweather.extension.toHourString
 import com.example.sampleweather.extension.toPercentString
@@ -40,14 +38,13 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {
-        Row(modifier = Modifier.padding(8.dp)) {
+        Row {
             dailyForecast.forecasts.forEach { hourlyForecast ->
                 HourlyItem(
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier.padding(horizontal = 24.dp),
                     hourlyForecast = hourlyForecast
                 )
             }
@@ -59,14 +56,10 @@ fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast) {
 fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
     Card(
         modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {
-        Column(
-            modifier = Modifier.padding(8.dp, 4.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = hourlyForecast.hour.toHourString(),
                 color = Color.White,
@@ -103,17 +96,13 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
             }
             Spacer(Modifier.height(36.dp))
             Text(
-                text = "Pokémon with a high rate of appearance",
+                text = stringResource(id = R.string.pokemon_alert),
                 color = Color.White,
                 fontSize = 16.sp
             )
             Row {
                 repeat(3) {
-                    Image(
-                        painter = rememberImagePainter(
-                            data = createPokemonData()
-                        ),
-                        contentDescription = "umbrella icon",
+                    PokemonItem(
                         modifier = Modifier
                             .size(100.dp)
                             .padding(8.dp)
@@ -130,9 +119,9 @@ fun DailyWeather() {
     var count by remember { mutableStateOf(0) }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Row() {
+        Row {
             Text(
-                text = "←",
+                text = stringResource(id = R.string.left_arrow),
                 modifier = Modifier.clickable { if (0 < count) count -= 1 },
                 fontSize = 28.sp,
                 color = Color.White
@@ -144,7 +133,7 @@ fun DailyWeather() {
                 modifier = Modifier.padding(horizontal = 40.dp)
             )
             Text(
-                text = "→",
+                text = stringResource(id = R.string.right_arrow),
                 modifier = Modifier.clickable { if (count < DAILY_FORECASTS.size - 1) count += 1 },
                 fontSize = 28.sp,
                 color = Color.White
@@ -153,6 +142,7 @@ fun DailyWeather() {
         LazyRow {
             items(1) {
                 DailyItem(
+                    modifier = Modifier.padding(8.dp),
                     dailyForecast = DAILY_FORECASTS[count]
                 )
             }
