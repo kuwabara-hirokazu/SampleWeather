@@ -47,7 +47,7 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
                     modifier = Modifier.padding(8.dp)
                 )
             }
-            Row(modifier = Modifier.padding(top = 8.dp)) {
+            Row(modifier = Modifier.padding(start = 4.dp, top = 8.dp)) {
                 repeat(3) {
                     PokemonItem(modifier = Modifier.size(64.dp))
                 }
