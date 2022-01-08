@@ -118,7 +118,7 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
 fun DailyWeather() {
     var count by remember { mutableStateOf(0) }
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(modifier = Modifier.padding(top = 16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
             Text(
                 text = stringResource(id = R.string.left_arrow),
