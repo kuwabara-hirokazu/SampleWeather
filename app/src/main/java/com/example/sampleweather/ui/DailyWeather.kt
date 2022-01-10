@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,6 +37,7 @@ import com.example.sampleweather.extension.toPercentString
 import com.example.sampleweather.model.DailyForecast
 import com.example.sampleweather.model.HourlyForecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast) {
@@ -123,6 +126,8 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast) {
 @Composable
 fun DailyWeather() {
     var count by remember { mutableStateOf(0) }
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier.padding(top = 16.dp),
@@ -131,7 +136,14 @@ fun DailyWeather() {
         Row {
             Text(
                 text = stringResource(id = R.string.left_arrow),
-                modifier = Modifier.clickable { if (0 < count) count -= 1 },
+                modifier = Modifier.clickable {
+                    if (0 < count) {
+                        count -= 1
+                        coroutineScope.launch {
+                            listState.scrollToItem(0)
+                        }
+                    }
+                },
                 fontSize = 28.sp,
                 color = Color.White
             )
@@ -143,12 +155,19 @@ fun DailyWeather() {
             )
             Text(
                 text = stringResource(id = R.string.right_arrow),
-                modifier = Modifier.clickable { if (count < DAILY_FORECASTS.size - 1) count += 1 },
+                modifier = Modifier.clickable {
+                    if (count < DAILY_FORECASTS.size - 1) {
+                        count += 1
+                        coroutineScope.launch {
+                            listState.scrollToItem(0)
+                        }
+                    }
+                },
                 fontSize = 28.sp,
                 color = Color.White
             )
         }
-        LazyRow {
+        LazyRow(state = listState) {
             items(1) {
                 DailyItem(
                     modifier = Modifier.padding(8.dp),
