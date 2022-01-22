@@ -6,7 +6,7 @@ import com.example.sampleweather.model.PokemonArea
 import com.example.sampleweather.model.WeatherItem
 import com.example.sampleweather.model.WeeklyForecast
 
-class MockWeatherData {
+class MockWeatherManager {
 
     fun createForecast(area: PokemonArea): List<WeeklyForecast> {
         val forecasts = when (area) {

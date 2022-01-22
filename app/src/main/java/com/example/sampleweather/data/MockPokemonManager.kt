@@ -2,7 +2,7 @@ package com.example.sampleweather.data
 
 import com.example.sampleweather.model.PokemonArea
 
-class MockPokemonData {
+class MockPokemonManager {
     companion object {
         const val POKEMON_IMAGE =
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"

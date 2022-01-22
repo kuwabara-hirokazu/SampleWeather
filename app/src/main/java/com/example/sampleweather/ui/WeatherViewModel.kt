@@ -3,13 +3,16 @@ package com.example.sampleweather.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sampleweather.data.MockPokemonData
-import com.example.sampleweather.data.MockWeatherData
+import com.example.sampleweather.data.MockPokemonManager
+import com.example.sampleweather.data.MockWeatherManager
 import com.example.sampleweather.model.DailyForecast
 import com.example.sampleweather.model.PokemonArea
 import com.example.sampleweather.model.WeeklyForecast
 
 class WeatherViewModel : ViewModel() {
+
+    private val weatherManager = MockWeatherManager()
+    private val pokemonManager = MockPokemonManager()
 
     private val _isWeeklyState = MutableLiveData(false)
     val isWeeklyState: LiveData<Boolean> = _isWeeklyState
@@ -67,18 +70,18 @@ class WeatherViewModel : ViewModel() {
     }
 
     private fun getDailyForecastData(area: PokemonArea) {
-        _dailyForecasts.value = MockWeatherData().createDailyForecasts(area)
+        _dailyForecasts.value = weatherManager.createDailyForecasts(area)
     }
 
     private fun getWeeklyForecastData(area: PokemonArea) {
-        _weeklyForecasts.value = MockWeatherData().createForecast(area)
+        _weeklyForecasts.value = weatherManager.createForecast(area)
     }
 
     private fun getWeeklyPokemonData(area: PokemonArea) {
-        _pokemonData.value = MockPokemonData().getWeeklyPokemonData(area)
+        _pokemonData.value = pokemonManager.getWeeklyPokemonData(area)
     }
 
     private fun getDailyPokemonData(area: PokemonArea) {
-        _pokemonData.value = MockPokemonData().getDailyPokemonData(area)
+        _pokemonData.value = pokemonManager.getDailyPokemonData(area)
     }
 }
