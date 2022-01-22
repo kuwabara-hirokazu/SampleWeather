@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.sampleweather.R
 import com.example.sampleweather.data.createDailyForecasts
-import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.extension.toDegreesString
 import com.example.sampleweather.extension.toHourString
 import com.example.sampleweather.extension.toPercentString
@@ -42,7 +41,11 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 import kotlinx.coroutines.launch
 
 @Composable
-fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast, area: PokemonArea) {
+fun DailyItem(
+    modifier: Modifier = Modifier,
+    dailyForecast: DailyForecast,
+    pokemonData: List<String>
+) {
     Card(
         modifier = modifier,
         backgroundColor = Color.Transparent,
@@ -53,7 +56,10 @@ fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast, area:
                 HourlyItem(
                     modifier = Modifier.padding(horizontal = 24.dp),
                     hourlyForecast = hourlyForecast,
-                    area = area
+                    pokemonData = pokemonData.subList(
+                        3 * hourlyForecast.hour,
+                        3 * hourlyForecast.hour + 3
+                    )
                 )
             }
         }
@@ -61,7 +67,11 @@ fun DailyItem(modifier: Modifier = Modifier, dailyForecast: DailyForecast, area:
 }
 
 @Composable
-fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast, area: PokemonArea) {
+fun HourlyItem(
+    modifier: Modifier = Modifier,
+    hourlyForecast: HourlyForecast,
+    pokemonData: List<String>
+) {
     Card(
         modifier = modifier,
         backgroundColor = Color.Transparent,
@@ -111,9 +121,7 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast, ar
             Row {
                 repeat(3) {
                     Image(
-                        painter = rememberImagePainter(
-                            data = createPokemonData(area = area)
-                        ),
+                        painter = rememberImagePainter(data = pokemonData[it]),
                         contentDescription = "pokemon icon",
                         modifier = Modifier
                             .size(100.dp)
@@ -127,7 +135,7 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast, ar
 
 
 @Composable
-fun DailyWeather(area: PokemonArea) {
+fun DailyWeather(area: PokemonArea, pokemonData: List<String>) {
     val dailyForecasts = createDailyForecasts(area)
     var count by remember { mutableStateOf(0) }
     val listState = rememberLazyListState()
@@ -175,7 +183,7 @@ fun DailyWeather(area: PokemonArea) {
             items(1) {
                 DailyItem(
                     dailyForecast = dailyForecasts[count],
-                    area = area
+                    pokemonData = pokemonData.subList(72 * count, 72 * count + 72)
                 )
             }
         }
@@ -186,6 +194,6 @@ fun DailyWeather(area: PokemonArea) {
 @Composable
 fun DailyWeatherPreview() {
     SampleWeatherTheme {
-        DailyWeather(area = PokemonArea.KANTO)
+        DailyWeather(area = PokemonArea.KANTO, listOf())
     }
 }

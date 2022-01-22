@@ -3,6 +3,7 @@ package com.example.sampleweather.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.sampleweather.data.MockPokemonData
 import com.example.sampleweather.model.PokemonArea
 
 class WeatherViewModel : ViewModel() {
@@ -19,5 +20,13 @@ class WeatherViewModel : ViewModel() {
 
     fun onAreaChange(pokemonArea: PokemonArea) {
         _pokemonArea.value = pokemonArea
+    }
+
+    fun getDailyPokemonData(area: PokemonArea): List<String> {
+        return MockPokemonData().getDailyPokemonData(area)
+    }
+
+    fun getWeeklyPokemonData(area: PokemonArea): List<String> {
+        return MockPokemonData().getWeeklyPokemonData(area)
     }
 }

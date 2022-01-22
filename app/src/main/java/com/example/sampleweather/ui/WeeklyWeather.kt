@@ -19,13 +19,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.sampleweather.data.createForecast
-import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.model.PokemonArea
 import com.example.sampleweather.model.WeeklyForecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
-fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast, area: PokemonArea) {
+fun WeeklyItem(
+    modifier: Modifier = Modifier,
+    weeklyForecast: WeeklyForecast,
+    pokemonData: List<String>
+) {
     Card(
         modifier = modifier,
         backgroundColor = Color.Transparent,
@@ -54,7 +57,7 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast, ar
                 repeat(3) {
                     Image(
                         painter = rememberImagePainter(
-                            data = createPokemonData(area = area)
+                            data = pokemonData[it]
                         ),
                         contentDescription = "pokemon icon",
                         modifier = Modifier.size(64.dp)
@@ -66,7 +69,7 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast, ar
 }
 
 @Composable
-fun WeeklyWeather(area: PokemonArea) {
+fun WeeklyWeather(area: PokemonArea, pokemonData: List<String>) {
     val weeklyData = createForecast(area)
     LazyColumn(
         modifier = Modifier.padding(16.dp)
@@ -75,7 +78,7 @@ fun WeeklyWeather(area: PokemonArea) {
             WeeklyItem(
                 modifier = Modifier.padding(8.dp),
                 weeklyForecast = weeklyData[index],
-                area = area
+                pokemonData = pokemonData.subList(3 * index, 3 * index + 3)
             )
         }
     }
@@ -85,7 +88,7 @@ fun WeeklyWeather(area: PokemonArea) {
 @Composable
 fun WeeklyWeatherPreview() {
     SampleWeatherTheme {
-        WeeklyWeather(PokemonArea.KANTO)
+        WeeklyWeather(PokemonArea.KANTO, listOf())
     }
 }
 

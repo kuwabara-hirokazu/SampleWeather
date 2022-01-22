@@ -31,8 +31,8 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         WeatherTitle(checkedWeeklyState) { viewModel.onStateChange(it) }
         AreaSelection(area) { viewModel.onAreaChange(it) }
         when (checkedWeeklyState) {
-            true -> WeeklyWeather(area = area)
-            false -> DailyWeather(area = area)
+            true -> WeeklyWeather(area = area, pokemonData = viewModel.getWeeklyPokemonData(area))
+            false -> DailyWeather(area = area, pokemonData = viewModel.getDailyPokemonData(area))
         }
     }
 }
