@@ -51,6 +51,7 @@ fun WeatherScreen() {
                     .clickable { checkedWeeklyState = !checkedWeeklyState }
             )
         }
+        AreaSelection()
         when (checkedWeeklyState) {
             true -> WeeklyWeather()
             false -> DailyWeather()
