@@ -20,6 +20,9 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 fun WeatherScreen(viewModel: WeatherViewModel) {
     val checkedWeeklyState by viewModel.isWeeklyState.observeAsState(false)
     val area by viewModel.pokemonArea.observeAsState(PokemonArea.KANTO)
+    val weeklyForecasts by viewModel.weeklyForecasts.observeAsState(listOf())
+    val dailyForecasts by viewModel.dailyForecasts.observeAsState(listOf())
+    val pokemonData by viewModel.pokemonData.observeAsState(listOf())
 
     Image(
         painter = painterResource(id = R.drawable.img_background),
@@ -28,11 +31,25 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         contentScale = ContentScale.Crop
     )
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        WeatherTitle(checkedWeeklyState) { viewModel.onStateChange(it) }
-        AreaSelection(area) { viewModel.onAreaChange(it) }
-        when (checkedWeeklyState) {
-            true -> WeeklyWeather(forecast = viewModel.getWeeklyForecastData(area), pokemonData = viewModel.getWeeklyPokemonData(area))
-            false -> DailyWeather(forecasts = viewModel.getDailyForecastData(area), pokemonData = viewModel.getDailyPokemonData(area))
+        WeatherTitle(checkedWeeklyState) {
+            viewModel.onStateChange(it)
+            viewModel.getWeatherData(area)
+        }
+        AreaSelection(area) {
+            viewModel.onAreaChange(it)
+            viewModel.getWeatherData(area)
+        }
+        if (pokemonData.isNotEmpty()) {
+            when (checkedWeeklyState) {
+                true -> WeeklyWeather(
+                    forecast = weeklyForecasts,
+                    pokemonData = pokemonData,
+                )
+                false -> DailyWeather(
+                    forecasts = dailyForecasts,
+                    pokemonData = pokemonData
+                )
+            }
         }
     }
 }

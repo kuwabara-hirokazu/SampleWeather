@@ -11,11 +11,20 @@ import com.example.sampleweather.model.WeeklyForecast
 
 class WeatherViewModel : ViewModel() {
 
-    private val _isWeeklyState = MutableLiveData<Boolean>()
+    private val _isWeeklyState = MutableLiveData(false)
     val isWeeklyState: LiveData<Boolean> = _isWeeklyState
 
     private val _pokemonArea = MutableLiveData<PokemonArea>()
     val pokemonArea: LiveData<PokemonArea> = _pokemonArea
+
+    private val _dailyForecasts = MutableLiveData<List<DailyForecast>>()
+    val dailyForecasts: LiveData<List<DailyForecast>> = _dailyForecasts
+
+    private val _weeklyForecasts = MutableLiveData<List<WeeklyForecast>>()
+    val weeklyForecasts: LiveData<List<WeeklyForecast>> = _weeklyForecasts
+
+    private val _pokemonData = MutableLiveData<List<String>>()
+    val pokemonData: LiveData<List<String>> = _pokemonData
 
     fun onStateChange(checkedWeeklyState: Boolean) {
         _isWeeklyState.value = checkedWeeklyState
@@ -25,19 +34,32 @@ class WeatherViewModel : ViewModel() {
         _pokemonArea.value = pokemonArea
     }
 
-    fun getDailyForecastData(area: PokemonArea): List<DailyForecast> {
-        return MockWeatherData().createDailyForecasts(area)
+    fun getWeatherData(area: PokemonArea) {
+        when (isWeeklyState.value) {
+            true -> {
+                getWeeklyForecastData(area)
+                getWeeklyPokemonData(area)
+            }
+            false -> {
+                getDailyForecastData(area)
+                getDailyPokemonData(area)
+            }
+        }
     }
 
-    fun getWeeklyForecastData(area: PokemonArea): List<WeeklyForecast> {
-        return MockWeatherData().createForecast(area)
+    private fun getDailyForecastData(area: PokemonArea) {
+        _dailyForecasts.value = MockWeatherData().createDailyForecasts(area)
     }
 
-    fun getDailyPokemonData(area: PokemonArea): List<String> {
-        return MockPokemonData().getDailyPokemonData(area)
+    private fun getWeeklyForecastData(area: PokemonArea) {
+        _weeklyForecasts.value = MockWeatherData().createForecast(area)
     }
 
-    fun getWeeklyPokemonData(area: PokemonArea): List<String> {
-        return MockPokemonData().getWeeklyPokemonData(area)
+    private fun getWeeklyPokemonData(area: PokemonArea) {
+        _pokemonData.value = MockPokemonData().getWeeklyPokemonData(area)
+    }
+
+    private fun getDailyPokemonData(area: PokemonArea) {
+        _pokemonData.value = MockPokemonData().getDailyPokemonData(area)
     }
 }
