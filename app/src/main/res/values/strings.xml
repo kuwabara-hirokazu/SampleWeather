@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PokéWeather</string>
+    <string name="poke_daily">PokéDaily</string>
+    <string name="poke_weekly">PokéWeekly</string>
     <string name="left_arrow">←</string>
     <string name="right_arrow">→</string>
     <string name="hour">%1$s:00</string>

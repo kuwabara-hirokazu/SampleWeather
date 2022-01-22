@@ -40,7 +40,10 @@ fun WeatherScreen() {
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
             Text(
-                text = stringResource(id = R.string.app_name),
+                text = when (checkedWeeklyState) {
+                    true -> stringResource(id = R.string.poke_weekly)
+                    false -> stringResource(id = R.string.poke_daily)
+                },
                 color = Color.White,
                 fontSize = 32.sp,
                 modifier = Modifier.padding(end = 16.dp)
