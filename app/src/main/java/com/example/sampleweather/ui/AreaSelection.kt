@@ -33,7 +33,6 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
 fun AreaSelection(area: PokemonArea, onAreaChange: (PokemonArea) -> Unit) {
-
     var expanded by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {

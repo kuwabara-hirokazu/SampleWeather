@@ -22,6 +22,7 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 fun WeatherScreen() {
     var checkedWeeklyState by remember { mutableStateOf(false) }
     var area by remember { mutableStateOf(PokemonArea.KANTO) }
+
     Image(
         painter = painterResource(id = R.drawable.img_background),
         contentDescription = "background image",
