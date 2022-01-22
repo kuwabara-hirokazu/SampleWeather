@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -19,9 +17,9 @@ import com.example.sampleweather.model.PokemonArea
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
-fun WeatherScreen() {
-    var checkedWeeklyState by remember { mutableStateOf(false) }
-    var area by remember { mutableStateOf(PokemonArea.KANTO) }
+fun WeatherScreen(viewModel: WeatherViewModel) {
+    val checkedWeeklyState by viewModel.isWeeklyState.observeAsState(false)
+    val area by viewModel.pokemonArea.observeAsState(PokemonArea.KANTO)
 
     Image(
         painter = painterResource(id = R.drawable.img_background),
@@ -30,8 +28,8 @@ fun WeatherScreen() {
         contentScale = ContentScale.Crop
     )
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        WeatherTitle(checkedWeeklyState) { checkedWeeklyState = it }
-        AreaSelection(area) { area = it }
+        WeatherTitle(checkedWeeklyState) { viewModel.onStateChange(it) }
+        AreaSelection(area) { viewModel.onAreaChange(it) }
         when (checkedWeeklyState) {
             true -> WeeklyWeather(area = area)
             false -> DailyWeather(area = area)
@@ -43,6 +41,6 @@ fun WeatherScreen() {
 @Preview
 fun WeatherScreenPreview() {
     SampleWeatherTheme {
-        WeatherScreen()
+        WeatherScreen(WeatherViewModel())
     }
 }
