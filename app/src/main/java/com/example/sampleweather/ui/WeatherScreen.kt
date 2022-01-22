@@ -20,6 +20,7 @@ import com.example.sampleweather.ui.theme.SampleWeatherTheme
 fun WeatherScreen(viewModel: WeatherViewModel) {
     val checkedWeeklyState by viewModel.isWeeklyState.observeAsState(false)
     val area by viewModel.pokemonArea.observeAsState(PokemonArea.KANTO)
+    val dayCount by viewModel.dayCount.observeAsState(0)
     val weeklyForecasts by viewModel.weeklyForecasts.observeAsState(listOf())
     val dailyForecasts by viewModel.dailyForecasts.observeAsState(listOf())
     val pokemonData by viewModel.pokemonData.observeAsState(listOf())
@@ -47,8 +48,9 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
                 )
                 false -> DailyWeather(
                     forecasts = dailyForecasts,
-                    pokemonData = pokemonData
-                )
+                    pokemonData = pokemonData,
+                    dayCount = dayCount
+                ) { viewModel.onDayChange(dailyForecasts, it) }
             }
         }
     }
