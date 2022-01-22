@@ -30,13 +30,13 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.sampleweather.R
 import com.example.sampleweather.data.DAILY_FORECASTS
-import com.example.sampleweather.data.PokemonArea
 import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.extension.toDegreesString
 import com.example.sampleweather.extension.toHourString
 import com.example.sampleweather.extension.toPercentString
 import com.example.sampleweather.model.DailyForecast
 import com.example.sampleweather.model.HourlyForecast
+import com.example.sampleweather.model.PokemonArea
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 import kotlinx.coroutines.launch
 

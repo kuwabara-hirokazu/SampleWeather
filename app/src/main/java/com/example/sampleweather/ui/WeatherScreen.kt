@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sampleweather.R
-import com.example.sampleweather.data.PokemonArea
+import com.example.sampleweather.model.PokemonArea
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
