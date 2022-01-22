@@ -32,9 +32,8 @@ import com.example.sampleweather.model.PokemonArea
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
-fun AreaSelection(onAreaChange: (PokemonArea) -> Unit) {
+fun AreaSelection(area: PokemonArea, onAreaChange: (PokemonArea) -> Unit) {
 
-    var areaName: Int by remember { mutableStateOf(PokemonArea.values()[0].value) }
     var expanded by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -53,7 +52,7 @@ fun AreaSelection(onAreaChange: (PokemonArea) -> Unit) {
                     .padding(end = 4.dp)
             )
             Text(
-                text = stringResource(id = areaName),
+                text = stringResource(id = area.value),
                 color = Color.White,
                 fontSize = 24.sp,
                 modifier = Modifier.padding(end = 8.dp)
@@ -68,7 +67,6 @@ fun AreaSelection(onAreaChange: (PokemonArea) -> Unit) {
                 PokemonArea.values().forEach { area ->
                     DropdownMenuItem(onClick = {
                         expanded = false
-                        areaName = area.value
                         onAreaChange(area)
                     }) {
                         Text(text = stringResource(id = area.value))
@@ -83,6 +81,6 @@ fun AreaSelection(onAreaChange: (PokemonArea) -> Unit) {
 @Preview
 fun AreaSelectionPreview() {
     SampleWeatherTheme {
-        AreaSelection {}
+        AreaSelection(PokemonArea.KANTO) {}
     }
 }

@@ -30,7 +30,7 @@ fun WeatherScreen() {
     )
     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         WeatherTitle(checkedWeeklyState) { checkedWeeklyState = it }
-        AreaSelection { area = it }
+        AreaSelection(area) { area = it }
         when (checkedWeeklyState) {
             true -> WeeklyWeather(area = area)
             false -> DailyWeather(area = area)
