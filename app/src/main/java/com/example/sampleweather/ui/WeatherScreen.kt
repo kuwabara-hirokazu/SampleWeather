@@ -24,11 +24,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sampleweather.R
+import com.example.sampleweather.data.PokemonArea
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
 fun WeatherScreen() {
     var checkedWeeklyState by remember { mutableStateOf(false) }
+    var area by remember { mutableStateOf(PokemonArea.KANTO) }
     Image(
         painter = painterResource(id = R.drawable.img_background),
         contentDescription = "background image",
@@ -51,10 +53,10 @@ fun WeatherScreen() {
                     .clickable { checkedWeeklyState = !checkedWeeklyState }
             )
         }
-        AreaSelection()
+        AreaSelection { area = it }
         when (checkedWeeklyState) {
-            true -> WeeklyWeather()
-            false -> DailyWeather()
+            true -> WeeklyWeather(area = area)
+            false -> DailyWeather(area = area)
         }
     }
 }

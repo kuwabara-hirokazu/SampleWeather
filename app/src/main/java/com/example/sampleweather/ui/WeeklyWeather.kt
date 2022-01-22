@@ -18,13 +18,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.example.sampleweather.data.PokemonArea
 import com.example.sampleweather.data.WEEKLY_FORECAST
 import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.model.WeeklyForecast
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
-fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
+fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast, area: PokemonArea) {
     Card(
         modifier = modifier,
         backgroundColor = Color.Transparent,
@@ -53,7 +54,7 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
                 repeat(3) {
                     Image(
                         painter = rememberImagePainter(
-                            data = createPokemonData()
+                            data = createPokemonData(area = area)
                         ),
                         contentDescription = "pokemon icon",
                         modifier = Modifier.size(64.dp)
@@ -65,14 +66,15 @@ fun WeeklyItem(modifier: Modifier = Modifier, weeklyForecast: WeeklyForecast) {
 }
 
 @Composable
-fun WeeklyWeather() {
+fun WeeklyWeather(area: PokemonArea) {
     LazyColumn(
         modifier = Modifier.padding(16.dp)
     ) {
         items(WEEKLY_FORECAST.size) { index ->
             WeeklyItem(
                 modifier = Modifier.padding(8.dp),
-                weeklyForecast = WEEKLY_FORECAST[index]
+                weeklyForecast = WEEKLY_FORECAST[index],
+                area = area
             )
         }
     }
@@ -82,7 +84,7 @@ fun WeeklyWeather() {
 @Composable
 fun WeeklyWeatherPreview() {
     SampleWeatherTheme {
-        WeeklyWeather()
+        WeeklyWeather(PokemonArea.KANTO)
     }
 }
 

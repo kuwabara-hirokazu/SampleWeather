@@ -32,7 +32,7 @@ import com.example.sampleweather.data.PokemonArea
 import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
-fun AreaSelection() {
+fun AreaSelection(onAreaChange: (PokemonArea) -> Unit) {
 
     var areaName: Int by remember { mutableStateOf(PokemonArea.values()[0].value) }
     var expanded by remember { mutableStateOf(false) }
@@ -69,6 +69,7 @@ fun AreaSelection() {
                     DropdownMenuItem(onClick = {
                         expanded = false
                         areaName = area.value
+                        onAreaChange(area)
                     }) {
                         Text(text = stringResource(id = area.value))
                     }
@@ -82,6 +83,6 @@ fun AreaSelection() {
 @Preview
 fun AreaSelectionPreview() {
     SampleWeatherTheme {
-        AreaSelection()
+        AreaSelection {}
     }
 }
