@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +30,7 @@ import com.example.sampleweather.extension.toHourString
 import com.example.sampleweather.extension.toPercentString
 import com.example.sampleweather.model.DailyForecast
 import com.example.sampleweather.model.HourlyForecast
+import kotlinx.coroutines.launch
 
 @Composable
 fun DailyItem(
@@ -130,6 +133,9 @@ fun DailyWeather(
     dayCount: Int,
     onDayChange: (isPressedNextDay: Boolean) -> Unit
 ) {
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
     Column(
         modifier = Modifier.padding(top = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -139,6 +145,10 @@ fun DailyWeather(
                 text = stringResource(id = R.string.left_arrow),
                 modifier = Modifier.clickable {
                     onDayChange(false)
+                    coroutineScope.launch {
+                        listState.scrollToItem(0)
+                    }
+
                 },
                 fontSize = 28.sp,
                 color = Color.White
@@ -153,12 +163,15 @@ fun DailyWeather(
                 text = stringResource(id = R.string.right_arrow),
                 modifier = Modifier.clickable {
                     onDayChange(true)
+                    coroutineScope.launch {
+                        listState.scrollToItem(0)
+                    }
                 },
                 fontSize = 28.sp,
                 color = Color.White
             )
         }
-        LazyRow(contentPadding = PaddingValues(20.dp)) {
+        LazyRow(state = listState, contentPadding = PaddingValues(20.dp)) {
             items(1) {
                 DailyItem(
                     dailyForecast = forecasts[dayCount],
