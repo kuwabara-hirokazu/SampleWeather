@@ -25,19 +25,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.sampleweather.R
-import com.example.sampleweather.data.createDailyForecasts
 import com.example.sampleweather.extension.toDegreesString
 import com.example.sampleweather.extension.toHourString
 import com.example.sampleweather.extension.toPercentString
 import com.example.sampleweather.model.DailyForecast
 import com.example.sampleweather.model.HourlyForecast
-import com.example.sampleweather.model.PokemonArea
-import com.example.sampleweather.ui.theme.SampleWeatherTheme
 import kotlinx.coroutines.launch
 
 @Composable
@@ -135,8 +131,7 @@ fun HourlyItem(
 
 
 @Composable
-fun DailyWeather(area: PokemonArea, pokemonData: List<String>) {
-    val dailyForecasts = createDailyForecasts(area)
+fun DailyWeather(forecasts: List<DailyForecast>, pokemonData: List<String>) {
     var count by remember { mutableStateOf(0) }
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
@@ -160,7 +155,7 @@ fun DailyWeather(area: PokemonArea, pokemonData: List<String>) {
                 color = Color.White
             )
             Text(
-                text = dailyForecasts[count].date,
+                text = forecasts[count].date,
                 fontSize = 24.sp,
                 color = Color.White,
                 modifier = Modifier.padding(horizontal = 40.dp)
@@ -168,7 +163,7 @@ fun DailyWeather(area: PokemonArea, pokemonData: List<String>) {
             Text(
                 text = stringResource(id = R.string.right_arrow),
                 modifier = Modifier.clickable {
-                    if (count < dailyForecasts.size - 1) {
+                    if (count < forecasts.size - 1) {
                         count += 1
                         coroutineScope.launch {
                             listState.scrollToItem(0)
@@ -182,18 +177,10 @@ fun DailyWeather(area: PokemonArea, pokemonData: List<String>) {
         LazyRow(state = listState, contentPadding = PaddingValues(20.dp)) {
             items(1) {
                 DailyItem(
-                    dailyForecast = dailyForecasts[count],
+                    dailyForecast = forecasts[count],
                     pokemonData = pokemonData.subList(72 * count, 72 * count + 72)
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun DailyWeatherPreview() {
-    SampleWeatherTheme {
-        DailyWeather(area = PokemonArea.KANTO, listOf())
     }
 }

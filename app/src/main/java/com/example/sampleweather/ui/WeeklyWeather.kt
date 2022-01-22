@@ -14,14 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import com.example.sampleweather.data.createForecast
-import com.example.sampleweather.model.PokemonArea
 import com.example.sampleweather.model.WeeklyForecast
-import com.example.sampleweather.ui.theme.SampleWeatherTheme
 
 @Composable
 fun WeeklyItem(
@@ -69,26 +65,17 @@ fun WeeklyItem(
 }
 
 @Composable
-fun WeeklyWeather(area: PokemonArea, pokemonData: List<String>) {
-    val weeklyData = createForecast(area)
+fun WeeklyWeather(forecast: List<WeeklyForecast>, pokemonData: List<String>) {
     LazyColumn(
         modifier = Modifier.padding(16.dp)
     ) {
-        items(weeklyData.size) { index ->
+        items(forecast.size) { index ->
             WeeklyItem(
                 modifier = Modifier.padding(8.dp),
-                weeklyForecast = weeklyData[index],
+                weeklyForecast = forecast[index],
                 pokemonData = pokemonData.subList(3 * index, 3 * index + 3)
             )
         }
-    }
-}
-
-@Preview
-@Composable
-fun WeeklyWeatherPreview() {
-    SampleWeatherTheme {
-        WeeklyWeather(PokemonArea.KANTO, listOf())
     }
 }
 

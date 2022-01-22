@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.sampleweather.data.MockPokemonData
+import com.example.sampleweather.data.MockWeatherData
+import com.example.sampleweather.model.DailyForecast
 import com.example.sampleweather.model.PokemonArea
+import com.example.sampleweather.model.WeeklyForecast
 
 class WeatherViewModel : ViewModel() {
 
@@ -20,6 +23,14 @@ class WeatherViewModel : ViewModel() {
 
     fun onAreaChange(pokemonArea: PokemonArea) {
         _pokemonArea.value = pokemonArea
+    }
+
+    fun getDailyForecastData(area: PokemonArea): List<DailyForecast> {
+        return MockWeatherData().createDailyForecasts(area)
+    }
+
+    fun getWeeklyForecastData(area: PokemonArea): List<WeeklyForecast> {
+        return MockWeatherData().createForecast(area)
     }
 
     fun getDailyPokemonData(area: PokemonArea): List<String> {
