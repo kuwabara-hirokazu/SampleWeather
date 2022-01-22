@@ -4,8 +4,7 @@ import com.example.sampleweather.R
 
 data class WeeklyForecast(
     val date: String,
-    val weather: WeatherItem,
-    val chanceOfRain: Int
+    val weather: WeatherItem
 )
 
 enum class WeatherItem(val weather: Int, val icon: Int) {

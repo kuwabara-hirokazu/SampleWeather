@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.sampleweather.R
-import com.example.sampleweather.data.DAILY_FORECASTS
+import com.example.sampleweather.data.createDailyForecasts
 import com.example.sampleweather.data.createPokemonData
 import com.example.sampleweather.extension.toDegreesString
 import com.example.sampleweather.extension.toHourString
@@ -127,6 +127,7 @@ fun HourlyItem(modifier: Modifier = Modifier, hourlyForecast: HourlyForecast, ar
 
 @Composable
 fun DailyWeather(area: PokemonArea) {
+    val dailyForecasts = createDailyForecasts(area)
     var count by remember { mutableStateOf(0) }
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
@@ -150,7 +151,7 @@ fun DailyWeather(area: PokemonArea) {
                 color = Color.White
             )
             Text(
-                text = DAILY_FORECASTS[count].date,
+                text = dailyForecasts[count].date,
                 fontSize = 24.sp,
                 color = Color.White,
                 modifier = Modifier.padding(horizontal = 40.dp)
@@ -158,7 +159,7 @@ fun DailyWeather(area: PokemonArea) {
             Text(
                 text = stringResource(id = R.string.right_arrow),
                 modifier = Modifier.clickable {
-                    if (count < DAILY_FORECASTS.size - 1) {
+                    if (count < dailyForecasts.size - 1) {
                         count += 1
                         coroutineScope.launch {
                             listState.scrollToItem(0)
@@ -173,7 +174,7 @@ fun DailyWeather(area: PokemonArea) {
             items(1) {
                 DailyItem(
                     modifier = Modifier.padding(8.dp),
-                    dailyForecast = DAILY_FORECASTS[count],
+                    dailyForecast = dailyForecasts[count],
                     area = area
                 )
             }

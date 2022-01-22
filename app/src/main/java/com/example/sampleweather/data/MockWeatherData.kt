@@ -1,22 +1,27 @@
 package com.example.sampleweather.data
 
 import com.example.sampleweather.model.DailyForecast
-import com.example.sampleweather.model.WeeklyForecast
 import com.example.sampleweather.model.HourlyForecast
+import com.example.sampleweather.model.PokemonArea
 import com.example.sampleweather.model.WeatherItem
+import com.example.sampleweather.model.WeeklyForecast
 
-val WEEKLY_FORECAST = listOf(
-    WeeklyForecast("11/1", WeatherItem.SUNNY, 40),
-    WeeklyForecast("11/2", WeatherItem.RAINY, 85),
-    WeeklyForecast("11/3", WeatherItem.SNOW, 70),
-    WeeklyForecast("11/4", WeatherItem.THUNDER, 100),
-    WeeklyForecast("11/5", WeatherItem.FOG, 60),
-    WeeklyForecast("11/6", WeatherItem.SUNNY, 10),
-    WeeklyForecast("11/7", WeatherItem.SNOW, 80)
-)
+fun createForecast(area: PokemonArea): List<WeeklyForecast> {
+    val forecasts = when (area) {
+        PokemonArea.KANTO -> listOf(WeatherItem.SUNNY, WeatherItem.RAINY, WeatherItem.SNOW, WeatherItem.THUNDER, WeatherItem.FOG, WeatherItem.SUNNY, WeatherItem.SNOW)
+        PokemonArea.JOHTO -> listOf(WeatherItem.RAINY, WeatherItem.SUNNY, WeatherItem.SNOW, WeatherItem.THUNDER, WeatherItem.SNOW, WeatherItem.SUNNY, WeatherItem.FOG)
+        PokemonArea.HOEEN -> listOf(WeatherItem.SNOW, WeatherItem.THUNDER, WeatherItem.SUNNY, WeatherItem.RAINY, WeatherItem.SUNNY, WeatherItem.SNOW, WeatherItem.FOG)
+        PokemonArea.SINNOH -> listOf(WeatherItem.THUNDER, WeatherItem.FOG, WeatherItem.SUNNY, WeatherItem.RAINY, WeatherItem.SUNNY, WeatherItem.SNOW, WeatherItem.SNOW)
+    }
 
-val DAILY_FORECASTS: List<DailyForecast> =
-    WEEKLY_FORECAST.map { DailyForecast(it.date, it.weather.createHourlyWeather()) }
+    return (0..6).map {
+        WeeklyForecast("11/${it + 1}", forecasts[it])
+    }
+}
+
+fun createDailyForecasts(area: PokemonArea): List<DailyForecast> {
+    return createForecast(area).map { DailyForecast(it.date, it.weather.createHourlyWeather()) }
+}
 
 private fun WeatherItem.createHourlyWeather(): List<HourlyForecast> {
     return (0..23).map { hour -> HourlyForecast(hour, weather, icon, getTemperature(), getChanceOfRain()) }
