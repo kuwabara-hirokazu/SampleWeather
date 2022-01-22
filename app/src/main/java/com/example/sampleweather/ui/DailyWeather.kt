@@ -148,7 +148,6 @@ fun DailyWeather(
                     coroutineScope.launch {
                         listState.scrollToItem(0)
                     }
-
                 },
                 fontSize = 28.sp,
                 color = Color.White
