@@ -17,7 +17,7 @@ class WeatherViewModel : ViewModel() {
     private val _isWeeklyState = MutableLiveData(false)
     val isWeeklyState: LiveData<Boolean> = _isWeeklyState
 
-    private val _pokemonArea = MutableLiveData<PokemonArea>()
+    private val _pokemonArea = MutableLiveData(PokemonArea.KANTO)
     val pokemonArea: LiveData<PokemonArea> = _pokemonArea
 
     private val _dayCount = MutableLiveData<Int>()
@@ -37,7 +37,10 @@ class WeatherViewModel : ViewModel() {
     }
 
     fun onAreaChange(pokemonArea: PokemonArea) {
-        _pokemonArea.value = pokemonArea
+        if (_pokemonArea.value != pokemonArea) {
+            _pokemonArea.value = pokemonArea
+            getWeatherData(pokemonArea)
+        }
     }
 
     fun onDayChange(forecasts: List<DailyForecast>, isPressedNextDay: Boolean) {

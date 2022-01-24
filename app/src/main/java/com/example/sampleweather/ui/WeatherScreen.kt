@@ -38,7 +38,6 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         }
         AreaSelection(area) {
             viewModel.onAreaChange(it)
-            viewModel.getWeatherData(area)
         }
         if (pokemonData.isNotEmpty()) {
             when (checkedWeeklyState) {
